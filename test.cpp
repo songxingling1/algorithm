@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
+#define MAX_N 10000
 using namespace std;
+char s[MAX_N + 5];
 int main() {
-    int a;
-    fread(&a,sizeof(int),1,stdin);
-    fwrite(&a,sizeof(int),1,stdout);
+    scanf("%s",s);
+    printf("%s\n",s);
     return 0;
 }
