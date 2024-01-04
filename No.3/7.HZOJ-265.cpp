@@ -1,67 +1,58 @@
 #include <bits/stdc++.h>
+#define MAX_S 10000
 using namespace std;
-string s;
-struct node {
-    bool isB;
-    int size;
-    char c;
-};
-int solve() {
-    vector<node> sta;
-    node t;
-    int n = s.size();
-    t.isB = false;
-    t.c = ' ';
-    t.size = -114514;
-    sta.push_back(t);
-    sta.push_back(t);
-    sta.push_back(t);
-    for(int i = 0;i < n;i++) {
-        t.isB = false;
-        t.c = s[i];
-        t.size = -114514;
-        sta.push_back(t);
-        while(true) {
-            vector<node>::reverse_iterator it = sta.rbegin();
-            node a = *it;
-            it++;
-            node b = *it;
-            it++;
-            node c = *it;
-            if(a.isB && b.isB) {
-                t.isB = true;
-                t.size = a.size + b.size;
-                sta.pop_back();
-                sta.pop_back();
-                sta.push_back(t);
-                continue;
-            } else if(!(a.isB || b.isB) && ((a.c == ')' && b.c == '(') || (a.c == ']' && b.c == '[') || (a.c == '}' && b.c == '{'))) {
-                t.isB = true;
-                t.size = 2;
-                sta.pop_back();
-                sta.pop_back();
-                sta.push_back(t);
-                continue;
-            } else if(b.isB && ((a.c == ')' && c.c == '(') || (a.c == ']' && c.c == '[') || (a.c == '}' && c.c == '{'))) {
-                t.isB = true;
-                t.size = 2 + b.size;
-                sta.pop_back();
-                sta.pop_back();
-                sta.pop_back();
-                sta.push_back(t);
-                continue;
-            }
-            break;
+char s[MAX_S + 5];
+int match[MAX_S + 5]; //match[i] == 0 :没有合法匹配       match[i] != 0 :存储匹配括号位置
+stack<int> sta;
+int main() {
+    s[0] = 'h';
+    scanf("%s",s + 1);
+    for (int i = 1; s[i]; i++)
+    {
+        switch(s[i]) {
+            case '(':
+            case '[':
+            case '{':
+                sta.push(i);
+                break;
+            case ')':
+                if(!sta.empty() && s[sta.top()] == '(') {
+                    match[sta.top()] = i;
+                    sta.pop();
+                } else {
+                    sta.push(i);
+                }
+                break;
+            case ']':
+                if(!sta.empty() && s[sta.top()] == '[') {
+                    match[sta.top()] = i;
+                    sta.pop();
+                } else {
+                    sta.push(i);
+                }
+                break;
+            case '}':
+                if(!sta.empty() && s[sta.top()] == '{') {
+                    match[sta.top()] = i;
+                    sta.pop();
+                } else {
+                    sta.push(i);
+                }
+                break;
         }
     }
-    int ans = 0;
-    for(int i = 0;i < sta.size();i++) {
-        ans = max(ans,sta[i].size);
+    int temp_ans = 0,ans = 0;
+    int i = 1;
+    while(s[i]) {
+        if(match[i]) {
+            temp_ans += match[i] - i + 1;
+            i = match[i] + 1;
+        } else {
+            i++;
+            temp_ans = 0;
+        }
+        ans = max(temp_ans,ans);
     }
-    return ans;
-}
-int main() {
-    cin >> s;
-    printf("%d\n",solve());
+    printf("%d\n",ans);
     return 0;
 }
