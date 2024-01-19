@@ -55,6 +55,8 @@ void dfs(node *root) {
     end = tot;
     printf("%d : [%d, %d]\n",root->key,start,end);
 }
+
+
 int main() {
     srand(time(0));
     node *root = nullptr;
