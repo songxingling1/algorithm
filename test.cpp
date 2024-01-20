@@ -3,7 +3,10 @@
 using namespace std;
 char s[MAX_N + 5];
 int main() {
-    scanf("%s",s);
-    printf("%s\n",s);
+    vector<int> a;
+    a.push_back(1);
+    a.push_back(3);
+    a.emplace(a.begin() + 1,2);
+    for_each(a.begin(),a.end(),[](int i)->void{printf("%d",i);});
     return 0;
 }
