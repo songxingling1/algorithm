@@ -1,12 +1,13 @@
 #include <bits/stdc++.h>
-#include <queue>
-#define MAX_N 10000
 using namespace std;
-char s[MAX_N + 5];
+set<int> gSet;
+set<int>& get_set() {
+    return gSet;
+}
 int main() {
-    priority_queue<int> p;
-    p.emplace(5);
-    p.emplace(6);
-    cout << p.top() << endl;
+    gSet.emplace(1);
+    gSet.emplace(2);
+    get_set().clear();
+    cout << get_set().size() << " " << gSet.size() << endl;
     return 0;
 }
