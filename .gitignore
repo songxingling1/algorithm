@@ -1,4 +1,4 @@
-out/
+build/
 .vscode/
 test.cpp
 compile_flags.txt
