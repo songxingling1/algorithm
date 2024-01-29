@@ -3,7 +3,7 @@
 #include <cstring>
 #include <ctime>
 #define SMALL_DATA_N 5000
-#define BIG_DATA_N 100000
+#define BIG_DATA_N 1000000
 #define TEST(func, arr, n)                                                \
     {                                                                     \
         printf("Test %s : ", #func);                                      \
