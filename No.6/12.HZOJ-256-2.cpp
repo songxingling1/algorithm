@@ -1,3 +1,5 @@
+// scope: 100
+
 #include <bits/stdc++.h>
 #include <vector>
 #define MAX_N 1000
@@ -6,7 +8,7 @@ int gA[MAX_N + 5];
 int gB[MAX_N + 5];
 int gInd[MAX_N + 5];
 class BigNum {
-private:
+protected:
     vector<int> mNum;
 
 public:
@@ -24,26 +26,6 @@ public:
     BigNum (const BigNum& n) = default;
     BigNum& operator= (const BigNum& n) = default;
     BigNum& operator*= (const int& n) {
-        /*BigNum ans;
-        int pos1 = 0;
-        int pos2 = 0;
-        int temp, x = 0;
-        while (pos2 < mNum.size ()) {
-            pos1 = 0;
-            while (pos1 < n.mNum.size ()) {
-                temp = n.mNum[pos1] * mNum[pos2];
-                ans.addNumOnIndex (pos1 + x, temp);
-                if(ans.mNum[pos1 + x] >= 10) {
-                    ans.addNumOnIndex(pos1 + x + 1,
-        ans.mNum[pos1 + x] % 10); ans.mNum[pos1 + x] /=
-        10;
-                }
-                pos1++;
-            }
-            pos2++;
-            x++;
-        }
-        mNum = ans.mNum;*/
         for (int& i : mNum) {
             i *= n;
         }
