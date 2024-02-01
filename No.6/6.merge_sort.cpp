@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include "libSortTest.h"
+#include "libSortTest.hpp"
 
 int* gBuff;
 void merge_sort(int* arr, int left, int right) {

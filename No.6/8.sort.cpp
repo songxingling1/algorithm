@@ -4,7 +4,7 @@
 #include <iostream>
 #include <ostream>
 #include <vector>
-#include "libSortTest.h"
+#include "libSortTest.hpp"
 using namespace std;
 struct data {
     int mNum1, mNum2;

@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "tools.h"
+#include "tools.hpp"
 using namespace std;
 
 struct link_list_node {
@@ -99,8 +99,8 @@ int main () {
 #define MAX_OP 10
     auto* q = new Queue;
     for (int i = 0; i < MAX_OP; i++) {
-        int op = get_rand (0, 5),
-            val = get_rand (
+        int op = get_rand<int> (0, 5),
+            val = get_rand<int> (
                 0, 100);          // 0,1 : pop | 2,3,4
                                   // : push
         switch (op) {

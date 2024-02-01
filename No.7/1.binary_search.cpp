@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <iostream>
-#include "tools.h"
+#include "tools.hpp"
 using namespace std;
 void output (int* arr, int n, int ind = -1) {
     int len = 0;
@@ -38,9 +38,9 @@ int binary_search (const int* arr, int n, int x) {
 }
 void test_binary_search (int n) {
     int* arr = new int[n];
-    arr[0] = get_rand (0, 10);
+    arr[0] = get_rand<int>(0, 10);
     for (int i = 1; i < n; i++)
-        arr[i] = arr[i - 1] + get_rand (0, 10);
+        arr[i] = arr[i - 1] + get_rand<int> (0, 10);
     output (arr, n);
     int x;
     while (scanf ("%d", &x)) {

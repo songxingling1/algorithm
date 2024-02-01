@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <ctime>
-#include "libSortTest.h"
+#include "libSortTest.hpp"
 using namespace std;
 void insert_sort(int* arr, int left, int right, int step) {
     int tmp = left;

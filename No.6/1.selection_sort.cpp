@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdio>
 #include <ctime>
-#include "libSortTest.h"
+#include "libSortTest.hpp"
 using namespace std;
 void selection_sort(int* arr, int left, int right) {
     for(int i = left; i < right - 1; i++) {
