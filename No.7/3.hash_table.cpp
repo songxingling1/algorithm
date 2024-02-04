@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
+#include <cstdio>
 #include <cstring>
+#include <functional>
+#include <string>
 #include <tools.hpp>
 using namespace std;
 class HashTable {
@@ -47,12 +50,9 @@ HashTable::HashTable (int n) {
 HashTable::~HashTable () {
     delete[] mData;
 }
-int hash_func (const char* s) {
-    int seed = 131, h = 0;
-    for (int i = 0; s[i]; i++) {
-        h = h * seed + s[i];
-    }
-    return h & 0x7fffffff;          // NOLINT
+size_t hash_func (const char* s) {
+    hash<string> hasher;
+    return hasher (s);
 }
 void HashTable::expand () {
     printf ("expand Hash Table %d -> %d\n", mSize, mSize * 2);
@@ -73,14 +73,14 @@ void HashTable::insert (const char* s) {
     if (mCnt >= mSize * 2) {
         expand ();
     }
-    int hcode = hash_func (s), ind = hcode % mSize;
+    size_t hcode = hash_func (s), ind = hcode % mSize;
     ListNode* p = new ListNode (s);
     p->mNext = mData[ind].mNext;
     mData[ind].mNext = p;
     mCnt++;
 }
 bool HashTable::find (const char* s) {
-    int hcode = hash_func (s), ind = hcode % mSize;
+    size_t hcode = hash_func (s), ind = hcode % mSize;
     ListNode* p = mData[ind].mNext;
     while (p) {
         if (strcmp (s, p->mStr) == 0)
