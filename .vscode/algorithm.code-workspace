@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"editor.defaultFormatter": "xaver.clang-format",
+		"editor.formatOnSave": true,
+		"[cpp]": {
+			"editor.defaultFormatter": "xaver.clang-format"
+		},
+		"[html]": {
+			"editor.defaultFormatter": "vscode.html-language-features"
+		},
+		"[markdown]": {
+			"editor.defaultFormatter": "yzhang.markdown-all-in-one"
+		}
+	}
+}

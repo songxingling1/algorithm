@@ -1,0 +1,4 @@
+-std=c++14
+-Wall
+-DDEBUG
+-I/home/songxinglin/Documents/algorithm/utils
