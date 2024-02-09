@@ -1,23 +1,17 @@
 #include <bits/stdc++.h>
-#include <cstdlib>
-#include <unordered_map>
 using namespace std;
-int gTot = 0;
-class A {
-private:
-    A* mD;
-
+class A{
 public:
-    A () {
-        gTot++;
-        mD = gTot < 5 ? new A : nullptr;
-    }
-    ~A () {
-        delete mD;
-    }
+    int j;
+    static A NIL;
+    A() 
 };
-int main () {
-    A* a = new A;
-    delete a;
+A A::NIL;
+__attribute__((constructor))
+void init_nil() {
+    A::NIL.j = 5;
+}
+int main() {
+    ;
     return 0;
 }
