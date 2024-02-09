@@ -1,1 +1,5 @@
 out/
+compile_flags.txt
+.vscode/
+tmp/
+compile_flags.txt
