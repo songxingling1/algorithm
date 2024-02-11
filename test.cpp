@@ -1,17 +1,9 @@
 #include <bits/stdc++.h>
+#include <tools.hpp>
 using namespace std;
-class A{
-public:
-    int j;
-    static A NIL;
-    A() 
-};
-A A::NIL;
-__attribute__((constructor))
-void init_nil() {
-    A::NIL.j = 5;
-}
 int main() {
-    ;
+    while(true) {
+        cout << get_rand<int>(0,100) << endl;
+    }
     return 0;
 }
