@@ -2,3 +2,11 @@ out/
 compile_flags.txt
 .vscode/
 compile_flags.txt
+*.aux
+*.bbl
+*.blg
+*.brf
+tmp/*.log
+tmp/*.out
+*.pgf
+*.synctex.gz

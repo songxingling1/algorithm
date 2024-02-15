@@ -1,22 +1,14 @@
 #include <bits/stdc++.h>
+#include <cstring>
 #include <tools.hpp>
 using namespace std;
-enum TEST { E1, E2, E3 };
-TEST operator++ (TEST& t, int) {          // NOLINT
-    int n = t;
-    n++;
-    TEST old = t;
-    t = ( TEST )n;
-    return old;
-}
-TEST& operator+= (TEST& n1, TEST& n2) {
-    int i1 = n1, i2 = n2;
-    n1 = ( TEST )(i1 + i2);
-    return n1;
-}
 int main () {
-    TEST t = E1, t2 = E2;
-    t += t2;
-    cout << t << endl;
+    string a = "helloworld";
+    cout << a << endl;
+    cout << a << endl;
+    cout << a << endl;
+    for (int i = 0; i <= 10; i++) {
+        cout << a << endl;
+    }
     return 0;
 }
