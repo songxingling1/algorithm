@@ -6,6 +6,7 @@ compile_flags.txt
 *.bbl
 *.blg
 *.brf
+*.toc
 tmp/*.log
 tmp/*.out
 *.pgf

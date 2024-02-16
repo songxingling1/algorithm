@@ -54,7 +54,7 @@
 删除调整站在父节点处。
 并且，调整前后应当保证黑色节点数量不变。
 
-\subsection{插入\cite{insert}}
+\subsection{插入\texorpdfstring{\cite{insert}}{}}
 在插入之前，请读者思考一个问题：新插入的节点应该是什么颜色的？\\
 事实上，新插入的节点应该是红色的。因为根据红黑树的第5条平衡条件，
 如果插入黑色节点，这条路径上的黑色节点会多一个，必定会引发
@@ -79,6 +79,7 @@
 如果红黑树是上文中所绘制的情况，即叔父节点是红色节点，
 可以将祖父节点变为红色，父节点变为黑色，这种操作叫做红色上浮。
 调整后的红黑树如下图所示：\\
+\\
 \begin{tikzpicture}
     \node[red] (15) at(10,10) {15};
     \node[black] (1) at(4,8) {1};
@@ -190,7 +191,7 @@
 事实上，在最后一步也可以采用红色下沉，即父节点
 变为红色，祖父节点变为黑色。
 
-\subsection{删除\cite{delete}}
+\subsection{删除\texorpdfstring{\cite{delete}}{}}
 因为删除度为2的节点可以转化为删除度为1或度为0的节点，所以
 下面只讨论删除度为1或度为0的节点的情况。
 \begin{table}[H]
@@ -434,7 +435,9 @@
 
 此时，双重黑节点旁边的节点是黑色，可以按前三种情况进行调整。
 \newpage
-\section{代码演示\cite{insert_code}\cite{delete_code}}
+\section{代码演示
+    \texorpdfstring{\cite{insert_code}}{}
+    \texorpdfstring{\cite{delete_code}}{}}
 \begin{framed}
     \lstinputlisting[
         style=C++,
