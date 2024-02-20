@@ -1,14 +1,10 @@
 #include <bits/stdc++.h>
-#include <cstring>
 #include <tools.hpp>
 using namespace std;
 int main () {
-    string a = "helloworld";
+    int a = 5;
+#if a == 5
     cout << a << endl;
-    cout << a << endl;
-    cout << a << endl;
-    for (int i = 0; i <= 10; i++) {
-        cout << a << endl;
-    }
+#endif
     return 0;
 }
