@@ -3,23 +3,21 @@ using namespace std;
 int main () {
     int n;
     scanf ("%d", &n);
-    vector<int> arra (n + 1), arrb (n + 1);
-    for (int i = 1; i <= n; i++) {
-        scanf ("%d", &arra[i]);
-    }
-    for (int i = 1; i <= n; i++) {
-        scanf ("%d", &arrb[i]);
-    }
-    stack<int> q1, q2;
+    vector<int> arrA (n + 1), arrB (n + 1);
+    for (int i = 1; i <= n; i++)
+        scanf ("%d", &arrA[i]);
+    for (int i = 1; i <= n; i++)
+        scanf ("%d", &arrB[i]);
+    stack<int> sta, stb;
     int p;
     for (p = 1; p <= n; p++) {
-        while (!q1.empty () && arra[q1.top ()] > arra[p])
-            q1.pop ();
-        while (!q2.empty () && arrb[q2.top ()] > arrb[p])
-            q2.pop ();
-        q1.push (p);
-        q2.push (p);
-        if (q1.size () != q2.size ())
+        while (!sta.empty () && arrA[sta.top ()] >= arrA[p])
+            sta.pop ();
+        while (!stb.empty () && arrB[stb.top ()] >= arrB[p])
+            stb.pop ();
+        sta.push (p);
+        stb.push (p);
+        if (sta.size () != stb.size ())
             break;
     }
     printf ("%d\n", p - 1);
