@@ -2,21 +2,20 @@
 #define MAX_N 100000
 using namespace std;
 int n;
-bool cmp(string a, string b) {
-    return a + b > b + a;
+vector<string> nums;
+bool cmp(string i, string j) {
+    return i + j > j + i;
 }
 int main() {
     scanf("%d", &n);
-    vector<string> nums;
-    string tmp;
-    for (int i = 1; i <= n; i++) {
-        cin >> tmp;
-        nums.push_back(tmp);
+    for (int i = 0; i < n; i++) {
+        nums.emplace_back();
+        cin >> nums[i];
     }
     sort(nums.begin(), nums.end(), cmp);
     for (string i : nums) {
         cout << i;
     }
-    puts("");
+    cout << endl;
     return 0;
 }

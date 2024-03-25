@@ -12,3 +12,4 @@ tmp/*.out
 *.pgf
 *.synctex.gz
 test.cpp
+tmp.tex
