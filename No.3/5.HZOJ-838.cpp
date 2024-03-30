@@ -26,7 +26,7 @@ inline int clac(int a,int b,int c) {
 }
 
 int func(queue<int> que1, queue<int> que2, queue<int> que3) {
-    int a,b,c,ans =0x3f3f3f3f,tmp1,tmp2;
+    int a,b,c,ans = 0x3f3f3f3f,tmp1,tmp2;
     while(que1.size() >= 1 && que2.size() >= 1 && que3.size() >= 1) {
         a = que1.front();
         b = que2.front();
