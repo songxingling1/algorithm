@@ -1,6 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
+//   y ^
+//   3 |
+//   2 |
+//   1 |
+//   --|---------> x
+//   0 | 1  2  3
 void solve(ll level,ll id,ll &x,ll &y) {
     if(level == 1) {
         switch(id) {
@@ -24,21 +30,21 @@ void solve(ll level,ll id,ll &x,ll &y) {
         return;
     }
     ll cnt = (1LL << (2 * level)) / 4,xx,tx,ty;
-    xx = (1LL << level) / 2;
-    if(id <= cnt) {
+    xx = (1LL << level) / 2; // 设置区块边长
+    if(id <= cnt) { // ① (x,y) => (xx + 1 - y)
         solve(level - 1,id,x,y);
         tx = x;
         ty = y;
         x = xx + 1 - ty;
         y = 2 * xx - tx + 1;
-    } else if(id <= 2 * cnt) {
+    } else if(id <= 2 * cnt) { // ② (x,y) => (x + xx,y + xx)
         solve(level - 1,id - cnt,x,y);
         x += xx;
         y += xx;
-    } else if(id <= 3 * cnt) {
+    } else if(id <= 3 * cnt) { // ③ (x,y) => (x + xx,y)
         solve(level - 1,id - 2 * cnt,x,y);
         x += xx;
-    } else {
+    } else { // ④ (x,y) => (y,x)
         solve(level - 1,id - 3 * cnt,x,y);
         tx = x;
         ty = y;
