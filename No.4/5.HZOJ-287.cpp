@@ -1,23 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
-    priority_queue<int,vector<int>,greater<int>> food;
-    int n,t;
+    int n;
     scanf("%d",&n);
-    for(int i = 1;i <= n;i++) {
+    priority_queue<int,vector<int>,greater<int>> que;
+    for(int i = 1,t;i <= n;i++) {
         scanf("%d",&t);
-        food.emplace(t);
+        que.push(t);
     }
-    int ans = 0,i1,i2;
-    while (food.size() != 1)
-    {
-
-        i1 = food.top();
-        food.pop();
-        i2 = food.top();
-        food.pop();
+    int i1,i2,ans = 0;
+    while(que.size() > 1) {
+        i1 = que.top();
+        que.pop();
+        i2 = que.top();
+        que.pop();
         ans += i1 + i2;
-        food.emplace(i1 + i2);
+        que.push(i1 + i2);
     }
     printf("%d\n",ans);
     return 0;
