@@ -3,8 +3,8 @@ using namespace std;
 int shop[100010];
 int main() {
     int n;
-    scanf("%d\n",&n);
-    for(int i = 1;i <= n;i++) {
+    scanf("%d",&n);
+    for(int i = 1;i <= n ;i++) {
         scanf("%d",&shop[i]);
     }
     sort(shop + 1,shop + n + 1);
