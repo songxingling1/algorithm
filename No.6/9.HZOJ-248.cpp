@@ -1,45 +1,35 @@
-#include <cstdio>
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+#define MAX_N 500000
 using namespace std;
-vector<long long> gData;
-vector<long long> gTemp;
-long long gAns;
-void merge_sort (long long left, long long right) {
-    if (right - left <= 1)
-        return;
-    long long mid = (left + right) / 2;
-    merge_sort (left, mid);
-    merge_sort (mid, right);
-    long long p1 = left, p2 = mid, pos = left;
-    while (p1 < mid || p2 < right) {
-        if (p1 == mid
-            || (p2 < right && gData[p1] > gData[p2])) {
-            gAns += mid - p1;
-            gTemp[pos++] = gData[p2++];
+int arr[MAX_N + 5];
+int tmp[MAX_N + 5];
+long long total;
+void mergeSort(int l,int r) {
+    if(r - l <= 1) return;
+    int mid = (l + r) / 2;
+    mergeSort(l,mid);
+    mergeSort(mid,r);
+    int p1 = l,p2 = mid,p = l;
+    while(p1 < mid || p2 < r) {
+        if(p2 == r || (p1 != mid && arr[p1] <= arr[p2])) {
+            tmp[p++] = arr[p1++];
         } else {
-            gTemp[pos++] = gData[p1++];
+            total += mid - p1;
+            tmp[p++] = arr[p2++];
         }
     }
-    for (long long i = left; i < right; i++) {
-        gData[i] = gTemp[i];
+    for(int i = l;i < r;i++) {
+        arr[i] = tmp[i];
     }
 }
-int main () {
-    long long size;
-    while (scanf ("%lld", &size)) {
-        if (size == 0)
-            break;
-        gData.clear ();
-        gData.resize (size);
-        gTemp.clear ();
-        gTemp.resize (size);
-        for (long long i = 0; i < size; i++) {
-            scanf ("%lld", &gData[i]);
-        }
-        gAns = 0;
-        merge_sort (0, size);
-        printf ("%lld\n", gAns);
+int main() {
+    int size;
+    while(scanf("%d",&size) != EOF) {
+        if(size == 0) break;
+        total = 0;
+        for(int i = 1;i <= size;i++) scanf("%d",&arr[i]);
+        mergeSort(1,size + 1);
+        printf("%lld\n",total);
     }
     return 0;
 }

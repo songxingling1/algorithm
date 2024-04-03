@@ -1,50 +1,30 @@
 #include <bits/stdc++.h>
-#include <climits>
+#define MAX_N 100000
 using namespace std;
-/*
-解题方案：
-进行二分查找，边界条件为 tail - head > 0.001，
-判断函数为先获取数据的前缀和，整个前缀和数组减去
-A，之后在原数组找到最大的区间和（用前缀和优化），
-如果大于0，返回true，否则返回false；
-
-不开double见祖宗！！！
-*/
-vector<double> gData;
-vector<double> gSum;
-int gN, gM;
-bool check (double a) {
-    gSum[0] = 0;
-    for (int i = 1; i <= gN; i++)
-        gSum[i] = gData[i] + gSum[i - 1] - a;
-    double minNum = 0;
-    for (int i = gM; i <= gN; i++) {
-        minNum = min (minNum, gSum[i - gM]);
-        if (gSum[i] - minNum > 0)
-            return true;
+int arr[MAX_N + 5];
+double sum[MAX_N + 5] = {0};
+int n,m;
+bool check(double a) {
+    for(int i = 1;i <= n;i++) sum[i] = sum[i - 1] + arr[i] - a;
+    double minnum = 0;
+    for(int i = m;i <= n;i++) {
+        minnum = min(minnum,sum[i - m]);
+        if(sum[i] - minnum > 0) return true;
     }
     return false;
 }
-double solve () {
-    double head = 0, tail = gSum[gN], mid;
-    while (tail - head > 0.001) {
-        mid = (head + tail) / 2;
-        if (check (mid))
-            head = mid;
-        else
-            tail = mid;
+double solve() {
+    double l = 0,r = 0x3f3f3f3f,mid;
+    while(r - l >= 0.0001) {
+        mid = (l + r) / 2;
+        if(check(mid)) l = mid;
+        else r = mid;
     }
-    return tail;
+    return r;
 }
-int main () {
-    scanf ("%d%d", &gN, &gM);
-    gData.resize (gN + 5, 0);
-    gSum.resize (gN + 5, 0);
-    for (int i = 1; i <= gN; i++) {
-        scanf ("%lf", &gData[i]);
-        gSum[i] = gData[i] + gSum[i - 1];
-    }
-    int ans = ( int )(solve () * 1000);
-    printf ("%d\n", ans);
+int main() {
+    scanf("%d%d",&n,&m);
+    for(int i = 1;i <= n;i++) scanf("%d",&arr[i]);
+    printf("%d\n",static_cast<int>(solve() * 1000));
     return 0;
 }
