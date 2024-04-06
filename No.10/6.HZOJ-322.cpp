@@ -2,57 +2,58 @@
 using namespace std;
 class UnionSet {
 public:
-    UnionSet (int n) : fa (n + 1) {
-        for (int i = 0; i <= n; i++) {
-            fa[i] = i;
-        }
+    UnionSet(int n):fa(n + 5) {
+        for(int i = 0;i <= n;i++) fa[i] = i;
     }
-    int find (int x) {
-        return fa[x] = (fa[x] == x ? x : find (fa[x]));
+    int find(int x) {
+        return fa[x] = (fa[x] == x ? x : find(fa[x]));
     }
-    void merge (int a, int b) {
-        fa[find (a)] = fa[find (b)];
+    void merge(int a,int b) {
+        fa[find(a)] = fa[find(b)];
     }
     vector<int> fa;
 };
-struct data {
-    int a, b, c;
+struct dat {
+    int a,b;
 };
-void solve () {
+void solve() {
     int n;
-    scanf ("%d", &n);
-    unordered_map<int, int> m;
-    int cnt = 0;
-    vector<data> d;
-    d.reserve (n);
-    for (int i = 0; i < n; i++) {
-        scanf ("%d%d%d", &d[i].a, &d[i].b, &d[i].c);
-        if (m.find (d[i].a) == m.end ()) {
-            m[d[i].a] = cnt++;
+    scanf("%d",&n);
+    unordered_map<int,int> map;
+    vector<dat> v1,v2;
+    int e,cnt = 0;
+    dat tmp;
+    for(int i = 1;i <= n;i++) {
+        scanf("%d%d%d",&tmp.a,&tmp.b,&e);
+        if(e == 1) {
+            if(map.find(tmp.a) == map.end()) map[tmp.a] = ++cnt;
+            if(map.find(tmp.b) == map.end()) map[tmp.b] = ++cnt;
+            v1.push_back(tmp);
         }
-        if (m.find (d[i].b) == m.end ()) {
-            m[d[i].b] = cnt++;
-        }
-    }
-    UnionSet u (cnt);
-    for (int i = 0; i < n; i++) {
-        if (d[i].c == 1) {
-            u.merge (m[d[i].a], m[d[i].b]);
+        else {
+            if(map.find(tmp.a) == map.end()) map[tmp.a] = ++cnt;
+            if(map.find(tmp.b) == map.end()) map[tmp.b] = ++cnt;
+            v2.push_back(tmp);
         }
     }
-    for (int i = 0; i < n; i++) {
-        if (d[i].c == 0
-            && (u.find (m[d[i].a]) == u.find (m[d[i].b]))) {
-            printf ("NO\n");
-            return;
+    UnionSet u(cnt);
+    for(dat i:v1) {
+        u.merge(map[i.a],map[i.b]);
+    }
+    bool ok = true;
+    for(dat i:v2) {
+        if(u.find(map[i.a]) == u.find(map[i.b])) {
+            ok = false;
+            break;
         }
     }
-    printf ("YES\n");
+    printf("%s\n",ok ? "YES" : "NO");
 }
-int main () {
+int main() {
     int t;
-    scanf ("%d", &t);
-    while (t--)
-        solve ();
+    scanf("%d",&t);
+    while(t--) {
+        solve();
+    }
     return 0;
 }

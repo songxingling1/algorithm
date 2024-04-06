@@ -1,12 +1,16 @@
 #include <bits/stdc++.h>
 #define MAX_N 1000
 using namespace std;
+struct dat {
+    int a,b;
+} arr[MAX_N + 5];
+int n;
 class BigInt : public vector<int> {
 public:
-    void d() {
+    void does() {
         for(int i = 0;i < size();i++) {
             if(at(i) < 10) continue;
-            if(i == size() - 1) push_back(0);
+            if(i + 1 == size()) push_back(0);
             at(i + 1) += at(i) / 10;
             at(i) %= 10;
         }
@@ -14,58 +18,46 @@ public:
     }
     BigInt(int x) {
         push_back(x);
-        d();
+        does();
     }
     BigInt():vector<int>() {}
-    bool operator>(BigInt &a) {
-        int size1 = size(),size2 = a.size();
-        if(size1 != size2) return size1 > size2;
-        for(int i = size1 - 1;i >= 0;i--) {
-            if(at(i) != a.at(i)) return at(i) > a.at(i);
-        }
-        return false;
-    }
     BigInt operator/(int x) {
-        BigInt ans(*this);
+        BigInt ret = *this;
         int tmp = 0;
         for(int i = size() - 1;i >= 0;i--) {
             tmp = tmp * 10 + at(i);
-            ans[i] = tmp / x;
+            ret[i] = tmp / x;
             tmp %= x;
         }
-        ans.d();
-        return ans;
+        ret.does();
+        return ret;
+    }
+    bool operator>(const BigInt &x) {
+        int len1 = size(),len2 = x.size();
+        if(len1 != len2) return len1 > len2;
+        for(int i = len2 - 1;i >= 0;i--) {
+            if(at(i) != x.at(i)) return at(i) > x.at(i);
+        }
+        return false;
     }
     BigInt &operator*=(int x) {
-        for(int &i:*this) {
-            i *= x;
-        }
-        d();
+        int len = size();
+        for(int i = 0;i < len;i++) at(i) *= x;
+        does();
         return *this;
     }
 };
-typedef BigInt ll;
-struct da {
-    int a,b;
-};
-da arr[MAX_N + 5];
-bool cmp(da i,da j) {
-    return j.a * j.b > i.a * i.b;
-}
 ostream &operator<<(ostream &out,const BigInt &x) {
-    for(int i = x.size() - 1;i >= 0;i--) {
-        printf("%d",x[i]);
-    }
+    for(int i = x.size() - 1;i >= 0;i--) printf("%d",x[i]);
     return out;
 }
 int main() {
-    int n;
     scanf("%d",&n);
-    for(int i = 0;i <= n;i++) {
-        scanf("%d%d",&arr[i].a,&arr[i].b);
-    }
-    sort(arr + 1,arr + 1 + n,cmp);
-    ll num = arr[0].a,ans = 0,temp;
+    for(int i = 0;i <= n;i++) scanf("%d%d",&arr[i].a,&arr[i].b);
+    sort(arr + 1,arr + 1 + n,[](const dat &i,const dat &j)->bool{
+        return j.a * j.b > i.a * i.b;
+    });
+    BigInt temp,num = arr[0].a,ans = 0;
     for(int i = 1;i <= n;i++) {
         temp = num / arr[i].b;
         if(temp > ans) ans = temp;

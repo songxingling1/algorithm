@@ -1,52 +1,48 @@
 #include <bits/stdc++.h>
+#define MAX_M 100000
 using namespace std;
 class UnionSet {
 public:
-    UnionSet (int n) : fa (n + 1), code (n + 1, 0) {
-        for (int i = 0; i <= n; i++) {
+    UnionSet(int n):fa(n + 5),code(n + 5,0) {
+        for(int i = 1;i <= n;i++) {
             fa[i] = i;
         }
     }
-    int find (int x) {
-        if (fa[x] == x)
-            return x;
-        int xx = find (fa[x]);
+    int find(int x) {
+        if(fa[x] == x) return x;
+        int ans = find(fa[x]);
         code[x] = (code[x] + code[fa[x]]) % 2;
-        fa[x] = xx;
-        return xx;
+        return fa[x] = ans;
     }
-    void merge (int a, int b) {
-        int aa = find (a), bb = find (b);
-        if (aa == bb) {
-            return;
-        }
-        code[aa] = (code[a] + 1 + code[b]) % 2;
-        fa[aa] = bb;
+    void merge(int i,int j) {
+        int a = find(i),b = find(j);
+        if(a == b) return;
+        code[a] = (code[i] + 1 + code[j]) % 2;
+        fa[a] = b;
     }
-    vector<int> fa, code;
+    vector<int> fa,code;
 };
-struct data {
-    int a, b, c;
-};
-int main () {
-    int n, m;
-    scanf ("%d%d", &n, &m);
-    UnionSet u (n);
-    data d[m + 1];
-    for (int i = 1; i <= m; i++) {
-        scanf ("%d%d%d", &d[i].a, &d[i].b, &d[i].c);
-    }
-    sort (d + 1, d + m + 1,
-          [] (data i, data j) -> bool { return i.c > j.c; });
+struct dat {
+    int a,b,c;
+} arr[MAX_M + 5];
+int main() {
+    int n,m;
+    scanf("%d%d",&n,&m);
+    UnionSet u(n);
     int ans = 0;
-    for (int i = 1; i <= m; i++) {
-        if ((u.find (d[i].a) == u.find (d[i].b))
-            && (u.code[d[i].a] + u.code[d[i].b]) % 2 == 0) {
-            ans = d[i].c;
+    for(int i = 1;i <= m;i++) {
+        scanf("%d%d%d",&arr[i].a,&arr[i].b,&arr[i].c);
+    }
+    sort(arr + 1,arr + 1 + m,[](const dat &i,const dat &j)->bool {
+        return i.c > j.c;
+    });
+    for(int i = 1;i <= m;i++) {
+        if(u.find(arr[i].a) == u.find(arr[i].b) && (u.code[arr[i].a] + u.code[arr[i].b]) % 2 == 0) {
+            ans = arr[i].c;
             break;
         }
-        u.merge (d[i].a, d[i].b);
+        u.merge(arr[i].a,arr[i].b);
     }
-    printf ("%d\n", ans);
+    printf("%d\n",ans);
     return 0;
 }
