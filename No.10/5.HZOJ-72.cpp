@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
+#define elif else if
 using namespace std;
 class UnionSet {
 public:
     UnionSet(int n):fa(n + 5),code(n + 5,0) {
-        for(int i = 1;i <= n;i++) fa[i] = i;
+        for(int i = 0;i <= n;i++) fa[i] = i;
     }
     int find(int x) {
         if(fa[x] == x) return x;
@@ -11,36 +12,32 @@ public:
         code[x] = (code[x] + code[fa[x]]) % 3;
         return fa[x] = ans;
     }
-    void merge(int i,int j) {
-        int a = find(i),b = find(j);
-        if(a == b) return;
-        fa[a] = b;
-        code[a] = (4 - code[i] + code[j]) % 3;
+    void merge(int a,int b) {
+        int aa = find(a),bb = find(b);
+        if(aa == bb) return;
+        code[aa] = (5 - code[a] + code[b]) % 3;
+        fa[aa] = bb;
     }
     vector<int> fa,code;
 };
 int main() {
     int n,m;
     scanf("%d%d",&n,&m);
-    UnionSet s(n);
-    int a,b,c,bb,cc;
+    int a,b,c;
+    UnionSet u(n);
     while(m--) {
         scanf("%d%d%d",&a,&b,&c);
         if(a == 1) {
-            s.merge(b,c);
+            u.merge(b,c);
         } else {
-            bb = s.find(b);
-            cc = s.find(c);
-            if(bb != cc) {
+            if(u.find(b) != u.find(c)) {
                 printf("Unknown\n");
-                continue;
-            }
-            if((s.code[b] - s.code[c] + 3) % 3 == 0) {
+            } elif ((u.code[b] - u.code[c] + 3) % 3 == 0) {
                 printf("Tie\n");
-            } else if((s.code[b] - s.code[c] + 3) % 3 == 1) {
-                printf("Win\n");
-            } else {
+            } elif ((u.code[b] - u.code[c] + 3) % 3 == 1) {
                 printf("Loss\n");
+            } else {
+                printf("Win\n");
             }
         }
     }
