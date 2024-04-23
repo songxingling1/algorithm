@@ -1,39 +1,39 @@
 #include <bits/stdc++.h>
-using namespace std;
 #define MAX_N 100000
-struct Dat {
-    int a,b;
-} task[MAX_N + 5],mach[MAX_N + 5];
-int cnt[105] = {0};
-bool cmp(const Dat &i,const Dat &j) {
-    if(i.a != j.a) return i.a > j.a;
-    return i.b > j.b;
+using namespace std;
+struct dat { // NOTE : 机器和任务存储结构
+    int x,y;
+} ta[MAX_N],ma[MAX_N];
+int cnt[105];
+bool cmp(const dat &i,const dat &j) { // NOTE : 排序方案
+    if(i.x != j.x) return i.x > j.x;
+    return i.y > j.y;
 }
 int main() {
     int n,m;
-    scanf("%d%d",&n,&m);
+    scanf("%d%d",&n,&m); // NOTE : 输入
+    long long ans = 0,task_cnt = 0;
     for(int i = 1;i <= n;i++) {
-        scanf("%d%d",&mach[i].a,&mach[i].b);
+        scanf("%d%d",&ma[i].x,&ma[i].y);
     }
     for(int i = 1;i <= m;i++) {
-        scanf("%d%d",&task[i].a,&task[i].b);
+        scanf("%d%d",&ta[i].x,&ta[i].y);
     }
-    sort(task + 1,task + m + 1,cmp); // NOTE : 排序
-    sort(mach + 1,mach + 1 + n,cmp); // NOTE : 排序
-    long long ans = 0,num = 0;
-    for(int i = 1,j = 1;i <= m;i++) {
-        while(j <= n && mach[j].a >= task[i].a) {
-            cnt[mach[j].b]++;
+    sort(ma + 1,ma + 1 + n,cmp); // NOTE : 排序
+    sort(ta + 1,ta + 1 + m,cmp);
+    for(int i = 1,j = 1;i <= m;i++) { // NOTE : 分配任务
+        while(j <= n && ma[j].x >= ta[i].x) { // NOTE : 维护时间维度上可以处理的机器
+            cnt[ma[j].y]++;
             j++;
         }
-        for(int k = task[i].b;k <= 100;k++) {
-            if(cnt[k] == 0) continue;
-            cnt[k]--;
-            ans += 500 * task[i].a + 2 * task[i].b;
-            num++;
+        for(int y = ta[i].y;y <= 100;y++) { // NOTE : 选择机器
+            if(cnt[y] == 0) continue;
+            cnt[y]--;
+            ans += 500 * ta[i].x + 2 * ta[i].y;
+            task_cnt++;
             break;
         }
     }
-    printf("%lld %lld\n",num,ans);
+    printf("%lld %lld\n",task_cnt,ans); // NOTE : 输出
     return 0;
 }
