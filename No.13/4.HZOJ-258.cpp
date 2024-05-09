@@ -1,24 +1,23 @@
 #include <bits/stdc++.h>
 #define MAX_N 100
 using namespace std;
-int n;
-int b[MAX_N + 5][MAX_N + 5];
 int sum[MAX_N + 5][MAX_N + 5] = {{0}};
-int solve(int left,int right){
-    int ans = INT_MIN,s = 0;
+int n;
+int solve(int l,int r) {
+    int s = 0,ans = 0;
     for(int i = 1;i <= n;i++) {
-        if(s >= 0) s += sum[i][right] - sum[i][left - 1];
-        else s = sum[i][right] - sum[i][left - 1];
+        if(s >= 0) s += sum[r][i] - sum[l - 1][i];
+        else s = sum[r][i] - sum[l - 1][i];
         ans = max(ans,s);
     }
     return ans;
 }
 int main() {
-    scanf("%d", &n);
-    for (int i = 1;i <= n;i++) {
-        for (int j = 1;j <= n;j++) {
-            scanf("%d",&b[i][j]);
-            sum[j][i] = sum[j][i - 1] + b[i][j];
+    scanf("%d",&n);
+    for(int i = 1;i <= n;i++)  {
+        for(int j = 1;j <= n;j++) {
+            scanf("%d",&sum[i][j]);
+            sum[i][j] += sum[i - 1][j];
         }
     }
     int ans = INT_MIN;

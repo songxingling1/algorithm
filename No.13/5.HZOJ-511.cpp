@@ -4,24 +4,25 @@ typedef long long ll;
 int main() {
     ll a,b,k;
     scanf("%lld%lld%lld",&a,&b,&k);
-    ll cnt = 0;
+    ll ans = 0;
     if(k == 1) {
-        printf("%lld",b - a);
+        printf("%lld\n",b - a);
         return 0;
     }
     if(k == 0) {
-        if(b != 0) printf("%lld",b - a);
-        else printf("%d",!!(a));
+        if(b != 0) printf("%lld\n",b - a);
+        else printf("%d\n",!!(a));
+        return 0;
     }
     while(a != b) {
         if(a * k <= b) {
-            cnt += 1 + b % k;
+            ans += 1 + b % k;
             b /= k;
         } else {
-            cnt += b - a;
+            ans += b - a;
             break;
         }
     }
-    printf("%lld\n",cnt);
+    printf("%lld\n",ans);
     return 0;
 }

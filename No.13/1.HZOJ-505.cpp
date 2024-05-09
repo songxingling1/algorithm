@@ -1,20 +1,18 @@
 #include <bits/stdc++.h>
 #define MAX_N 100000
 using namespace std;
-int n;
-vector<string> nums;
-bool cmp(string i, string j) {
-    return i + j > j + i;
-}
+string str[MAX_N + 5];
 int main() {
-    scanf("%d", &n);
-    for (int i = 0; i < n; i++) {
-        nums.emplace_back();
-        cin >> nums[i];
+    int n;
+    scanf("%d",&n);
+    for(int i = 1;i <= n;i++) {
+        cin >> str[i];
     }
-    sort(nums.begin(), nums.end(), cmp);
-    for (string i : nums) {
-        cout << i;
+    sort(str + 1,str + 1 + n,[](const string &i,const string &j)->bool{
+        return i + j > j + i;
+    });
+    for(int i = 1;i <= n;i++) {
+        cout << str[i];
     }
     cout << endl;
     return 0;
