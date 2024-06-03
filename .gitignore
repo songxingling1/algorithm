@@ -11,3 +11,4 @@ tmp/*.out
 *.synctex.gz
 test.cpp
 tmp.tex
+other/
