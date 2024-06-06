@@ -85,12 +85,46 @@ namespace Boyer_Moore {
         return -1;
     }
 }
+namespace KMP {
+    int *getNext(const char *t) {
+        int tlen = strlen(t);
+        int *next = new int[tlen];
+        next[0] = -1;
+        for(int i = 1;i < tlen;i++) {
+            int j = next[i - 1];
+            while(1) {
+                if(t[i] == t[j + 1]) {
+                    next[i] = j + 1;
+                    break;
+                }
+                if(j == -1) {
+                    next[i] = -1;
+                    break;
+                }
+                j = next[j];
+            }
+        }
+        return next;
+    }
+    int solve(const char *s,const char *t) {
+        int *next = getNext(t);
+        int tlen = strlen(t);
+        int j = -1;
+        for(int i = 0;s[i];i++) {
+            while(j != -1 && s[i] != t[j + 1]) j = next[j];
+            if(s[i] == t[j + 1]) j++;
+            if(t[j + 1] == '\0') return i - tlen + 1;
+        }
+        return -1;
+    }
+}
 int main() {
     char s[100],t[100];
     while(scanf("%s%s",s,t) != EOF) {
         TEST(Brute_Force,s,t);
         TEST(Sunday,s,t);
         TEST(Boyer_Moore,s,t);
+        TEST(KMP,s,t);
     }
     return 0;
 }
