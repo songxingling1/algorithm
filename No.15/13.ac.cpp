@@ -19,18 +19,17 @@ void insert(int root,const char *s) {
 }
 void buildAc(int root) {
     queue<int> q;
-    for(int i = 0;i < BASE;i++) {
-        if(nxt[root][i] == 0) continue;
-        fail[nxt[root][i]] = root;
-        q.push(nxt[root][i]);
-    }
+    q.push(root);
     while(!q.empty()) {
         int t = q.front();
         q.pop();
         for(int i = 0;i < BASE;i++) {
-            if(nxt[t][i] == 0) continue;
+            if(nxt[t][i] == 0) {
+                if(t == root) nxt[t][i] = root;
+                else nxt[t][i]= nxt[fail[t]][i];
+                continue;
+            }
             int p = fail[t];
-            while(p != 0 && nxt[p][i] == 0) p = fail[p];
             if(p == 0) p = root;
             else p = nxt[p][i];
             fail[nxt[t][i]] = p;
@@ -42,9 +41,7 @@ void queryAc(int root,const char *s) {
     int p = root,q;
     for(int i = 0;s[i];i++) {
         int ind = s[i] - 'a';
-        while(p != 0 && nxt[p][ind] == 0) p = fail[p];
-        if(p == 0) p = root;
-        else p = nxt[p][ind];
+        p = nxt[p][ind];
         q = p;
         while(q != 0) {
             if(flag[q]) {
