@@ -12,3 +12,4 @@ tmp/*.out
 test.cpp
 tmp.tex
 other/
+input
