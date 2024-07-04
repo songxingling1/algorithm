@@ -10,6 +10,6 @@ int main() {
         a += 2 * h;
     }
     a -= 2 * h;
-    printf("%.4f\n%.7f\n", a, h);
+    printf("%g\n%g\n", a, h);
     return 0;
 }
