@@ -1,25 +1,26 @@
 #include <bits/stdc++.h>
-#include <cstdio>
 using namespace std;
-char s[105], maxs[105], mins[105];
 int main() {
-    int maxl = 0, minl = 105, l;
-    while (scanf("%[^,.\x20]", s) != EOF) {
-        l = strlen(s);
-        if(l == 0) continue;
-#ifdef DEBUG
-            printf("Found : %s\n",s);
-#endif
-        if (l > maxl) {
-            maxl = l;
-            strcpy(maxs, s);
+    string s, maxs, mins, tmp;
+    int maxl = 0, minl = 0x3f3f3f3f;
+    getline(cin, s);
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] == ' ' || s[i] == ',' || s[i] == '.') {
+            if (tmp.size() == 0) continue;
+            if (tmp.size() > maxl) {
+                maxs = tmp;
+                maxl = tmp.size();
+            }
+            if (tmp.size() < minl) {
+                mins = tmp;
+                minl = tmp.size();
+            }
+            tmp = "";
+            if (s[i] == '.') break;
+            continue;
         }
-        if (l < minl) {
-            minl = l;
-            strcpy(mins, s);
-        }
-        getchar();
+        tmp += s[i];
     }
-    printf("%s\n%s\n", maxs, mins);
+    cout << maxs << endl << mins << endl;
     return 0;
 }
