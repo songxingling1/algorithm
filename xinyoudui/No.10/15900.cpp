@@ -36,11 +36,11 @@ int main() {
     });
     sort(p.begin(), p.end(), [](const ctz &i, const ctz &j) -> bool {
         if (i.sex != j.sex) {
-            if (i.sex == 0) return true;
-            else return false;
+            return i.sex < j.sex;
         }
         if (i.sex == 0) {
-            return i.age < j.age;
+            if (i.age != j.age) return i.age < j.age;
+            else return i.cnt < j.cnt;
         }
         if (i.neng != j.neng) {
             return i.neng < j.neng;
