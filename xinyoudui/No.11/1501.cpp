@@ -2,11 +2,13 @@
 using namespace std;
 void solve(int h, int u, int d, int f) {
     double pos = 0;
-    double jiang = u * f * 0.01;
+    double jiang = f * 0.01 * u;
     double sheng = u;
     int cnt = 1;
     while (true) {
-        pos += sheng;
+        if (sheng > 0) {
+            pos += sheng;
+        }
         if (pos > h) {
             printf("SUCCESS ON DAY %d\n", cnt);
             return;

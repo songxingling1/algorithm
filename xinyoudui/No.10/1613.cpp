@@ -3,8 +3,8 @@ using namespace std;
 typedef long long ll;
 struct an {
     int s[15];
-    int f;
-    int p;
+    ll f;
+    ll p;
     int id;
 } arr[1005];
 int n, m, k;
@@ -15,9 +15,9 @@ void sets(an &x) {
         ans += x.s[i] * x.s[i];
         sum += x.s[i];
     }
-    double b = sum * 1.0 / k;
+    double b = sum / k;
     x.p = b;
-    ans = (ans - k * b * b) * 1.0 / k;
+    ans = (ans - k * b * b) / k;
     x.f = ans;
 }
 int main() {
