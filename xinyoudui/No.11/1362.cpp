@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <string>
 using namespace std;
 int main() {
     unsigned long long a1, a2, k, tmp;
