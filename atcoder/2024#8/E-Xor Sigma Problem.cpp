@@ -1,22 +1,23 @@
 #include <bits/stdc++.h>
+#define MAX_N 200005
 using namespace std;
-int a[200005];
-long long solve(int bit, int n) {
-    vector<int> odd(n + 1);
+using LL = long long;
+int a[MAX_N];
+LL solve(int k, int n) {
+    vector<int> odd(n + 1, 0);
     for (int i = 1; i <= n; i++) {
-        odd[i] = (a[i] >> bit) & 1;
+        odd[i] = (a[i] >> k) & 1;
     }
     for (int i = 2; i <= n; i++) {
-        odd[i] = odd[i] ^ odd[i - 1];
+        odd[i] ^= odd[i - 1];
     }
-    long long sum = 0;
-    map<int, int> ma;
-    ma[0] = 1;
+    LL ans = 0;
+    int m[2] = {1, 0};
     for (int i = 1; i <= n; i++) {
-        sum += ma[odd[i] ^ 1];
-        ma[odd[i]]++;
+        ans += m[odd[i] ^ 1];
+        m[odd[i]]++;
     }
-    return sum;
+    return ans;
 }
 int main() {
     int n;
@@ -24,11 +25,13 @@ int main() {
     for (int i = 1; i <= n; i++) {
         scanf("%d", a + i);
     }
-    long long ans = 0;
-    for (int i = 0; i < 32; i++) {
+    LL ans = 0;
+    for (int i = 0; i <= 31; i++) {
         ans += (1LL << i) * solve(i, n);
     }
-    ans -= accumulate(a + 1, a + 1 + n, 0LL);
+    for (int i = 1; i <= n; i++) {
+        ans -= a[i];
+    }
     printf("%lld\n", ans);
     return 0;
 }
