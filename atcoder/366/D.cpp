@@ -1,22 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[105][105][105];
+int sum[105][105][105];
 int main() {
     int n;
-    scanf("%d",&n);
-    for(int i = 1;i <= n;i++) {
-        for(int j = 1;j <= n;j++) {
-            for(int k = 1;k <= n;k++) {
-                scanf("%d",&a[i][j][k]);
-                a[i][j][k] += a[i - 1][j][k] + a[i][j - 1][k] + a[i][j][k - 1] - a[i - 1][j - 1][k] - a[i - 1][j][k - 1] - a[i][j - 1][k - 1] + a[i - 1][j - 1][k - 1];
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            for (int k = 1; k <= n; k++) {
+                scanf("%d", &sum[i][j][k]);
+                sum[i][j][k] += sum[i - 1][j][k] +
+                                sum[i][j - 1][k] +
+                                sum[i][j][k - 1] -
+                                sum[i - 1][j - 1][k] -
+                                sum[i - 1][j][k - 1] -
+                                sum[i][j - 1][k - 1] +
+                                sum[i - 1][j - 1][k - 1];
             }
         }
     }
-    int q,lx,rx,ly,ry,lz,rz;
-    scanf("%d",&q);
-    while(q--) {
-        scanf("%d%d%d%d%d%d",&lx,&rx,&ly,&ry,&lz,&rz);
-        printf("%d\n",a[rx][ry][rz] - a[lx - 1][ry][rz] - a[rx][ly - 1][rz] - a[rx][ry][lz - 1] + a[lx - 1][ly - 1][rz] + a[lx - 1][ry][lz - 1] + a[rx][ly - 1][lz - 1] - a[lx - 1][ly - 1][lz - 1]);
+    int lx, rx, ly, ry, lz, rz;
+    int q;
+    scanf("%d", &q);
+    while (q--) {
+        scanf("%d%d%d%d%d%d", &lx, &rx, &ly, &ry, &lz, &rz);
+        printf("%d\n",
+               sum[rx][ry][rz] - sum[lx - 1][ry][rz] -
+                   sum[rx][ly - 1][rz] -
+                   sum[rx][ry][lz - 1] +
+                   sum[lx - 1][ly - 1][rz] +
+                   sum[lx - 1][ry][lz - 1] +
+                   sum[rx][ly - 1][lz - 1] -
+                   sum[lx - 1][ly - 1][lz - 1]);
     }
     return 0;
 }
