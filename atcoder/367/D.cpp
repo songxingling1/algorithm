@@ -12,13 +12,15 @@ int main() {
         a[i] += a[i - 1];
         a[i] %= m;
     }
-    unordered_map<int, int> cnt;
     long long res = 0;
-    for (int i = 2; i <= n; i++) cnt[a[i]]++;
+    unordered_map<int, int> ma;
+    for (int i = 2; i <= n; i++) {
+        ma[a[i]]++;
+    }
     for (int i = n + 1; i <= 2 * n; i++) {
-        res += cnt[a[i]];
-        cnt[a[i]]++;
-        cnt[a[i - n + 1]]--;
+        res += ma[a[i]];
+        ma[a[i]]++;
+        ma[a[i - n + 1]]--;
     }
     printf("%lld\n", res);
     return 0;

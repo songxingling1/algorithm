@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
-#define MOD 156876589475701
+#define MOD 100000000000031
 #define MAX_N 200005
 using namespace std;
-int a[MAX_N], h[MAX_N], b[MAX_N], ph1[MAX_N], ph2[MAX_N];
+int a[MAX_N], b[MAX_N], h[MAX_N], ph1[MAX_N], ph2[MAX_N];
 int main() {
     int n, q;
     scanf("%d%d", &n, &q);

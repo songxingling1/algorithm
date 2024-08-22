@@ -6,9 +6,8 @@ int main() {
     int n;
     long long k;
     scanf("%d%lld", &n, &k);
-    for (int i = 1, t; i <= n; i++) {
-        scanf("%d", &t);
-        x[i][0] = t;
+    for (int i = 1; i <= n; i++) {
+        scanf("%d", &x[i][0]);
     }
     for (int i = 1; i <= n; i++) {
         scanf("%d", a + i);
