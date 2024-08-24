@@ -2,18 +2,15 @@
 #define lowbit(x) ((x) & -(x))
 using namespace std;
 int n;
-int ans[200005];
-int t[200005];
+int ans[200005], t[200005];
 int a[200005], b[200005];
 void add(int pos, int x) {
-    pos++;
-    while (pos <= n + 1) {
+    while (pos <= n) {
         t[pos] += x;
         pos += lowbit(pos);
     }
 }
 int query(int pos) {
-    pos++;
     int ans = 0;
     while (pos) {
         ans += t[pos];
@@ -25,7 +22,7 @@ int search(int x) {
     int l = 1, r = n, mid;
     while (l < r) {
         mid = (l + r) / 2;
-        if (x > query(mid)) {
+        if (query(mid) < x) {
             l = mid + 1;
         } else {
             r = mid;

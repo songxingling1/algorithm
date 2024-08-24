@@ -4,14 +4,12 @@ using namespace std;
 int a[80005], t[80005], ans[80005];
 int n;
 void add(int pos, int x) {
-    pos++;
-    while (pos <= n + 1) {
+    while (pos <= n) {
         t[pos] += x;
         pos += lowbit(pos);
     }
 }
 int query(int pos) {
-    pos++;
     int ans = 0;
     while (pos) {
         ans += t[pos];
@@ -23,7 +21,7 @@ int search(int x) {
     int l = 1, r = n, mid;
     while (l < r) {
         mid = (l + r) / 2;
-        if (x > query(mid)) {
+        if (query(mid) < x) {
             l = mid + 1;
         } else {
             r = mid;
@@ -33,7 +31,6 @@ int search(int x) {
 }
 int main() {
     scanf("%d", &n);
-    a[0] = 0;
     add(1, 1);
     for (int i = 2; i <= n; i++) {
         scanf("%d", a + i);
