@@ -1,76 +1,78 @@
 #include <bits/stdc++.h>
-#define MAX_N 1000
+#define int long long
 using namespace std;
-typedef long long ll;
-char s[MAX_N + 5];
-ll m[MAX_N + 5] = {0};
-ll judge(ll pos) {
-    if(s[pos] == '-' && (s[pos - 1] == '(' || pos == 1 || (!isdigit(s[pos - 1]))) && s[pos - 1] != ')') return 4;
-    char c = s[pos];
-    if(c == '+' || c == '-') return 1;
-    if(c == '*' || c == '/') return 2;
-    if(c == '^') return 3;
-    return 4;
-}
-ll qpow(ll a,ll b) {
-    ll ans = 1;
-    while(b) {
-        if(b & 1) ans *= a;
-        a *= a;
-        b >>= 1;
-    }
-    return ans;
-}
-void str() {
-    ll isK = 0;
-    ll size = strlen(s);
-    for(ll i = 1;i < size;i++) {
-        if(s[i] == '(') isK += 100;
-        m[i] = judge(i) + isK;
-        if(s[i] == ')' && isK != 0) isK -= 100;
+string s;
+bool isOp(char c) {
+    switch (c) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '^':
+            return true;
+        default:
+            return false;
     }
 }
-ll isNUm(ll begin,ll end) {
-    ll ans = 0;
-    ll dr = 0;
-    if(!(isdigit(s[begin]) || s[begin] == '-') && s[begin] != '(' && s[begin] != ')') return -1;
-    if(s[begin] == '-') dr = -1;
-    if(isdigit(s[begin])) ans = (ll)s[begin] - '0';
-    for(ll i = begin + 1;i <= end;i++) {
-        if(s[i] == '(' || s[i] == ')') continue;
-        if(!isdigit(s[i]) && !(dr == 0 && s[i] == '-')) return -1;
-        if(dr == 0 && s[i] == '-') dr = -1;
-        else ans = (ll)ans * 10 + (s[i] - '0');
-    }
-    if(dr == -1) ans *= -1;
-    return ans;
-}
-ll solve(int begin,int end) {
-    ll nums = isNUm(begin,end);
-    if(nums != -1) return nums;
-    ll pos = 0,num = 0x3f3f3f3f;
-    for(ll i = begin;i <= end;i++) {
-        if(s[i] == '(' || s[i] == ')') continue;
-        if(num >= m[i]) {
-            num = m[i];
+int clac(int l, int r) {
+    int pos = -1, num = 0x3f3f3f3f - 1, a, b = 0;
+    for (int i = l; i < r; i++) {
+        a = 0x3f3f3f3f;
+        switch (s[i]) {
+            case '(':
+                b += 100;
+                break;
+            case ')':
+                b -= 100;
+                break;
+            case '+':
+            case '-':
+                a = 1 + b;
+                break;
+            case '*':
+            case '/':
+                a = 2 + b;
+                break;
+            case '^':
+                a = 3 + b;
+                break;
+        }
+        if ((s[i] == '+' || s[i] == '-') &&
+            (i == 0 || isOp(s[i - 1]))) {
+            a += 1000;
+        }
+        if (num >= a) {
+            num = a;
             pos = i;
         }
     }
-    ll a = solve(begin,pos - 1);
-    ll b = solve(pos + 1,end);
-    switch(s[pos]) {
-        case '^':return qpow(a,b);
-        case '+':return a + b;
-        case '-':return a - b;
-        case '*':return a * b;
-        case '/':return a / b;
-        default:return -1;
+    if (pos == -1) {
+        num = 0;
+        for (int i = l; i < r; i++) {
+            if (s[i] < '0' || s[i] > '9') continue;
+            num = num * 10 + s[i] - '0';
+        }
+        return num;
+    } else {
+        a = clac(l, pos);
+        b = clac(pos + 1, r);
+        switch (s[pos]) {
+            case '+':
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                return a / b;
+            case '^':
+                return pow(a, b);
+        }
     }
+    return 0;
 }
-int main() {
-    s[0] = '0';
-    scanf("%s",s + 1);
-    str();
-    printf("%lld\n",solve(1,strlen(s) - 1));
+signed main() {
+    cin >> s;
+    cout << clac(0, s.size()) << endl;
     return 0;
 }

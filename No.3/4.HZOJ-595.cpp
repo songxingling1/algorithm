@@ -1,33 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
+vector<string> c;
+string target;
+string ans;
 int main() {
     int n;
-    scanf("%d",&n);
-    vector<string> ops(n,"");
-    vector<string> f;
-    for(int i = 0;i < n;i++) {
-        cin >> ops[i];
+    scanf("%d", &n);
+    c.resize(n + 1);
+    for (int i = 1; i <= n; i++) {
+        cin >> c[i];
     }
-    string w;
-    cin >> w;
-    bool flag = false;
-    for(int i = 0;i < n;i++) {
-        if(ops[i] == w) {
-            f.push_back(ops[i]);
-            flag = true;
-            break;
+    cin >> target;
+    vector<string> st;
+    for (int i = 1; i <= n; i++) {
+        if (c[i] == target) {
+            int len = st.size();
+            for (int i = 0; i < len; i++) {
+                if (i) cout << "->";
+                cout << st[i];
+            }
+            if (len != 0) cout << "->";
+            cout << target << endl;
+            return 0;
         }
-        if(ops[i] == "return") f.pop_back();
-        else f.push_back(ops[i]);
-    }
-    if(flag) {
-        for(int i = 0;i < f.size();i++) {
-            if(i) printf("->");
-            printf("%s",(f[i]).c_str());
+        if (c[i] == "return") {
+            st.pop_back();
+        } else {
+            st.push_back(c[i]);
         }
-        printf("\n");
-    } else {
-        printf("NOT REFERENCED");
     }
+    printf("NOT REFERENCED\n");
     return 0;
 }
