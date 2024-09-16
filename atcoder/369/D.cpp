@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 long long dp[200005][2];
-signed main() {
+int main() {
     int n;
     scanf("%d", &n);
     dp[0][1] = -0x3f3f3f3f;
