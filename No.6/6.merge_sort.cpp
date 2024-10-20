@@ -1,23 +1,22 @@
 #include <cstdio>
-#include <iostream>
 #include "libSortTest.hpp"
 
 int* gBuff;
 void merge_sort(int* arr, int left, int right) {
-    if(right - left <= 1)
-        return;
+    if (right - left <= 1) return;
     int mid = (left + right) / 2;
     merge_sort(arr, left, mid);
     merge_sort(arr, mid, right);
     int pos1 = left, pos2 = mid, pos = 0;
-    while(pos1 < mid || pos2 < right) {
-        if(pos2 == right || (pos1 < mid && arr[pos1] <= arr[pos2])) {
+    while (pos1 < mid || pos2 < right) {
+        if (pos2 == right ||
+            (pos1 < mid && arr[pos1] <= arr[pos2])) {
             gBuff[pos++] = arr[pos1++];
         } else {
             gBuff[pos++] = arr[pos2++];
         }
     }
-    for(int i = left; i < right; i++)
+    for (int i = left; i < right; i++)
         arr[i] = gBuff[i - left];
 }
 using namespace std;

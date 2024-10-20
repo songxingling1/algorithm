@@ -1,49 +1,39 @@
-#include <iostream>
-#include <cstdio>
-#include <queue>
-#include <vector>
-#include <set>
+#include <bits/stdc++.h>
 using namespace std;
-struct commodity {
-    int mDay, mPrice;
-    commodity()
-        : mDay(0), mPrice(0) {}
-    commodity(int _day, int _price)
-        : mDay(_day), mPrice(_price) {}
-};
-struct cmp {
-    bool operator()(const commodity& aNum, const commodity& bNum) {
-        if(aNum.mDay == bNum.mDay)
-            return aNum.mPrice < bNum.mPrice;
-        return aNum.mDay > bNum.mDay;
-    }
-};
+struct thing {
+    int d, p;
+    thing(int _d, int _p)
+    : d(_d)
+    , p(_p) {}
+    thing() = default;
+} arr[10005];
 int main() {
-    priority_queue<commodity, vector<commodity>, cmp> commoditys;
-    int length, price, day;
-    scanf("%d", &length);
-    for(int i = 1; i <= length; i++) {
-        scanf("%d%d", &price, &day);
-        commoditys.push(commodity(day, price));
+    int n;
+    scanf("%d", &n);
+    for (int i = 1, a, b; i <= n; i++) {
+        scanf("%d%d", &b, &a);
+        arr[i].d = a;
+        arr[i].p = b;
     }
-    set<pair<int, int>> answers;
-    int uid = 0;
-    commodity temp;
-    while(!commoditys.empty()) {
-        temp = commoditys.top();
-        commoditys.pop();
-        if(temp.mDay > answers.size()) {
-            answers.emplace(temp.mPrice, uid++);
+    sort(arr + 1,
+         arr + 1 + n,
+         [](const thing &i, const thing &j) {
+             return i.d < j.d;
+         });
+    multiset<int> s;
+    for (int i = 1; i <= n; i++) {
+        if (arr[i].d > s.size()) {
+            s.insert(arr[i].p);
         } else {
-            if(answers.begin()->first < temp.mPrice) {
-                answers.erase(answers.begin());
-                answers.emplace(temp.mPrice, uid);
+            if (arr[i].p >= *s.begin()) {
+                s.erase(s.begin());
+                s.insert(arr[i].p);
             }
         }
     }
     int ans = 0;
-    for(auto iNum : answers) {
-        ans += iNum.first;
+    for (int i : s) {
+        ans += i;
     }
     printf("%d\n", ans);
     return 0;

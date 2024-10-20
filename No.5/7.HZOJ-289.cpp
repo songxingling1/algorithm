@@ -1,57 +1,51 @@
-#include <cstdio>
-#include <iostream>
-#include <set>
-#define MAX_N 100000
+#include <bits/stdc++.h>
+#define MAX_N 100005
 using namespace std;
-typedef long long ll;
-typedef pair<ll, ll> pll;
-ll gArr[MAX_N + 5] = { 0 }, gLeft[MAX_N + 5] = { 0 },
-                gRight[MAX_N + 5] = { 0 },
-                gIsDelete[MAX_N + 5] = { 0 };
-multiset<pll> gHeap;
-void del (ll pos) {
-    gRight[gLeft[pos]] = gRight[pos];
-    gLeft[gRight[pos]] = gLeft[pos];
-    gIsDelete[pos] = 1;
+using ll = long long;
+using pll = pair<ll, ll>;
+int nt[MAX_N], pe[MAX_N], isd[MAX_N];
+ll arr[MAX_N];
+void del(int ind) {
+    nt[pe[ind]] = nt[ind];
+    pe[nt[ind]] = pe[ind];
+    isd[ind] = 1;
 }
-int main () {
-    int numM, numN, pos = 1;
-    scanf ("%d%d", &numN, &numM);
-    scanf ("%lld", gArr + 1);
-    for (int i = 2, buffer; i <= numN; i++) {
-        scanf ("%d", &buffer);
-        if (1LL * gArr[pos] * buffer < 0)
-            gArr[++pos] = buffer;
-        else
-            gArr[pos] += buffer;
+set<pll> S;
+int main() {
+    int n, m, pos = 1;
+    scanf("%d%d", &n, &m);
+    for (int i = 1, a; i <= n; i++) {
+        scanf("%d", &a);
+        if (1LL * arr[pos] * a < 0) {
+            arr[++pos] += a;
+        } else {
+            arr[pos] += a;
+        }
     }
-    numN = pos;
-    ll cnt = 0, numS = 0;
-    for (int i = 1; i <= numN; i++) {
-        gLeft[i] = i - 1;
-        gRight[i] = i + 1;
-        gHeap.emplace (abs (gArr[i]), i);
-        if (gArr[i] > 0) {
+    ll cnt = 0, s = 0;
+    for (int i = 1; i <= pos; i++) {
+        pe[i] = i - 1;
+        nt[i] = i + 1;
+        S.emplace(abs(arr[i]), i);
+        if (arr[i] > 0) {
             cnt++;
-            numS += gArr[i];
+            s += arr[i];
         }
     }
-    while (cnt > numM) {
-        while (gIsDelete[gHeap.begin ()->second])
-            gHeap.erase (gHeap.begin ());
-        ll index = gHeap.begin ()->second;
-        gHeap.erase (gHeap.begin ());
-        if ((gLeft[index] > 0 && gRight[index] <= numN)
-            || gArr[index] > 0) {
-            numS -= abs (gArr[index]);
+    while (cnt > m) {
+        while (isd[S.begin()->second]) S.erase(S.begin());
+        int ind = S.begin()->second;
+        S.erase(S.begin());
+        if ((pe[ind] > 0 && nt[ind] <= pos) ||
+            arr[ind] > 0) {
+            s -= abs(arr[ind]);
             cnt--;
-            gArr[index] += gArr[gLeft[index]]
-                + gArr[gRight[index]];
-            gHeap.emplace (abs (gArr[index]), index);
-            del (gLeft[index]);
-            del (gRight[index]);
+            arr[ind] += arr[pe[ind]] + arr[nt[ind]];
+            S.emplace(abs(arr[ind]), ind);
+            del(pe[ind]);
+            del(nt[ind]);
         }
     }
-    printf ("%lld\n", numS);
+    printf("%lld\n", s);
     return 0;
 }

@@ -1,39 +1,33 @@
-#include <iostream>
-#include <cstdio>
-#include <utility>
-#include <vector>
-#include <set>
+#include <bits/stdc++.h>
 using namespace std;
-typedef pair<int, int> PII;
-int gUid = 0;
-set<PII> gSet;
+multiset<int, greater<>> s;
 int main() {
-    int length, width, buffer = 0;
-    scanf("%d%d", &length, &width);
-    gSet.emplace(0, gUid++);
-    for(int i = 1; i <= length; i++) {
-        vector<int> temp;
-        temp.reserve(gSet.size());
-        for(auto num : gSet) {
-            temp.emplace_back(num.first);
+    int n, m;
+    scanf("%d%d", &n, &m);
+    s.insert(0);
+    for (int i = 1, a; i <= n; i++) {
+        vector<int> tmp;
+        for (int i : s) {
+            tmp.push_back(i);
         }
-        gSet.clear();
-        for(int j = 0; j < width; j++) {
-            scanf("%d", &buffer);
-            for(auto tmp : temp) {
-                if(gSet.size() < width || gSet.begin()->first < tmp - buffer) {
-                    gSet.emplace(make_pair(tmp - buffer, gUid++));
+        s.clear();
+        for (int i = 1; i <= m; i++) {
+            scanf("%d", &a);
+            for (int i : tmp) {
+                if (s.size() < m || *s.begin() > i + a) {
+                    s.insert(i + a);
                 }
-                if(gSet.size() > width)
-                    gSet.erase(gSet.begin());
+                if (s.size() > m) {
+                    s.erase(s.begin());
+                }
             }
         }
     }
-    auto iter = gSet.rbegin();
-    printf("%d", iter->first * -1);
-    iter++;
-    for(; iter != gSet.rend(); iter++) {
-        printf(" %d", iter->first * -1);
+    bool flag = false;
+    for (auto it = s.rbegin(); it != s.rend(); it++) {
+        if (flag) printf(" ");
+        printf("%d", *it);
+        flag = true;
     }
     puts("");
     return 0;
